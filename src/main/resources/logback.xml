@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <!-- SOURCE VARIABLE THAT USED IN CONFIG -->
+    <property scope="context" resource="META-INF/properties/config-log.properties" />    
+            
+    <!-- BEGIN APPENDERs DECLARATION -->
+    <appender name="defRollFileAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${log.file.name}.${log.file.ext}</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${log.file.name}.%d{dd-MM-yyyy}.${log.file.ext}.zip</fileNamePattern>
+            <maxHistory>${log.file.maxHistory}</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%-5level %date{dd-MM-yyyy HH:mm:ss.SSS} %logger : %msg %ex%n</pattern>
+        </encoder>
+    </appender>   
+  
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%-5level %date{dd-MM-yyyy HH:mm:ss.SSS} %logger : %msg %ex%n</pattern>
+        </encoder>
+    </appender>
+    <!-- END APPENDERs DECLARATION -->
+    
+<!--    <logger name="org.springframework" level="info" /> 
+    <logger name="org.springframework.beans" level="info" />  -->
+<logger name="org.hibernate.type" level="TRACE" />
+    <root level="debug">
+<!--        <appender-ref ref="defRollFileAppender" />-->
+        <appender-ref ref="console" />
+    </root>
+</configuration>

@@ -1,0 +1,134 @@
+<?page title="Mahasiswa" contentType="text/html;charset=UTF-8"?>
+<zk>
+<window title="Mahasiswa" border="normal" apply="org.zkoss.bind.BindComposer"
+viewModel="@id('vm')@init('vmd.MahasiswaEditVmd')">
+<hlayout>
+	<button label="Batal" onClick="@command('batal')"/>
+	<button label="Simpan" onClick="@command('simpan')"/>
+</hlayout>
+<space/>
+<grid>
+	<columns>
+		<column width="15%"/>
+		<column width="20%"/>
+		<column width="1%"/>
+		<column width="10%"/>
+		<column width="54%"/>
+	</columns>
+	<rows>
+		<row>
+			<label value="NIM" style="float:right"/>
+			<textbox value="@load(vm.generateNim)" readonly="@load(vm.readonly)"/>
+			<label value=""/>
+			<label value=""/>
+			<label value=""/>
+		</row>
+		<row>
+			<label value="Nama" style="float:right"/>
+			<textbox constraint="no empty: harus diisi" value="@bind(vm.mstHeader.mstMahasiswa.nama)"/>
+			<label value=""/>
+			<label value="Tanggal Masuk"/>
+			<datebox format="dd-MM-yyyy" width="150"
+						onCreate="self.value=new Date();" value="@bind(vm.mstHeader.mstDaftarMasuk.tanggalMasuk)"/>
+		</row>
+		<row>
+			<label value="Jenis Kelamin"/>
+			<radiogroup id="rg1" selectedItem="@bind(vm.mstHeader.mstMahasiswa.jenisKelamin)">
+			<radio id="ra1" label="Pria" radiogroup="rg1" />
+			<radio id="ra2" label="Wanita" radiogroup="rg1" />
+			</radiogroup>
+			<label value="Tanggal Lahit"/>
+			<datebox format="dd-MM-yyyy" width="150"
+						value="@bind(vm.mstHeader.mstDaftarMasuk.tanggalMasuk)"/>
+		</row>
+		<row>
+			<label value="Email"/>
+			<textbox value="@bind(vm.mstHeader.mstMahasiswa.email)"/>
+			<label value=""/>
+			<label value="usia"/>
+			<textbox value="@load(vm.mstHeader.)"/>
+		</row>
+		<row>
+			<label value="IPK"/>
+			<textbox  value="@bind(vm.mstHeader.mstMahasiswa.ipk)"/>
+		</row>
+		<row>
+			<label value="Provinsi"/>
+			<combobox constraint="no empty: harus di isi" 
+			model="@load(vm.listProvinsis)" 
+			selectedItem="@bind(vm.mstHeader.mstMahasiswa.mstKota.mstProvinsi)" 
+			value="@load(vm.mstProvinsi.namaProvinsi)">
+				<template name="model">
+					<comboitem label="@load(each.namaProvinsi)"/>
+				</template>
+			</combobox>
+		</row>
+		
+	</rows>
+</grid>
+<vlayout>
+	<groupbox>
+		<hbox width="100%">
+			<button label="Tambah" onClick="@command('addDetail')"/>
+			<button label="Hapus" onClick="@command('removeDetail')"/>
+		</hbox>
+		<space/>
+		<listbox model="@load(vm.listUjian)"
+		selectedItem="@bind(vm.trDetailpenjualan)">
+			<listhead>
+				<listheader label="Matakuliah"/>
+				<listheader label="SKS"/>
+				<listheader label="Grade"/>
+				<listheader label="Nilai"/>
+			</listhead>
+			
+			<template name="model">
+			<listitem>
+				<listcell label="@load(each.kodeMatkul.namaMatkul)"/>
+				<listcell label="@load(each.kodeMatkul.sks)"/>
+				<listcell label="@load(each.grad)"/>
+				<listcell label="@load(each.nilai)"/>
+			</listitem>
+		</template>
+		</listbox>
+		<space/>
+		
+	</groupbox>
+</vlayout>
+<window visible="@bind(vm.statusPopUp)" width="600px" height="400px" 
+mode="modal" contentStyle="overflow:auto" style="-webkit-box-shadow:1px, 1px, 10px, 3px #969696;
+box-shadow:1px, 1px, 10px, 3px #969696;"
+title="Add Detail" >
+<hlayout>
+	<button label="back" onClick="@command('backDetail')"/>
+	<button label="save" onClick="@command('saveDetail')"/>
+</hlayout>
+<space/>
+
+<grid>
+	<columns>
+		<column width="30%" align="right"/>
+		<column width="70%" />
+	</columns>
+	<rows>
+		<row>
+			<label value="Nama MataKuliah"/>
+			<textbox value="@bind(vm.mstHeader.mstUjian.kodeMatkul.namaMatkul)"/>
+		</row>
+		<row>
+			<label value="SKS"/>
+			<textbox value="@bind(vm.mstHeader.mstUjian.kodeMatkul.sks)"/>
+		</row>
+		<row>
+			<label value="Grade"/>
+			<textbox value="@bind(vm.mstHeader.mstUjian.kodeMatkul.sks)"/>
+		</row>
+		<row>
+			<label value="Nilai"/>
+			<doublebox value="@bind(vm.mstHeader.mstUjian.nilai)"/>
+		</row>
+	</rows>
+</grid>
+</window>
+</window>
+</zk>

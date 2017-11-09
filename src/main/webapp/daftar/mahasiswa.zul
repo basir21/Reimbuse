@@ -1,0 +1,25 @@
+<?page title="Mahasiswa" contentType="text/html;charset=UTF-8"?>
+<zk>
+<window title="Sales Order" border="normal" apply="org.zkoss.bind.BindComposer" 
+viewModel="@id('vm')@init('vmd.MahasiswaVmd')">
+<hlayout>
+	<button label="Tambah" onClick="@command('tambah')"/>
+	<button label="Ubah" onClick="@command('ubah')"/>
+</hlayout>
+<listbox model="@load(vm.listHeader)" selectedItem="@bind(vm.mstHeader)">
+	<listhead>
+		<listheader label="NIM" sort="auto"/>
+		<listheader label="NAMA" sort="auto"/>
+		<listheader label="EMAIL" sort="auto"/>
+		
+	</listhead>
+	<template name="model">
+		<listitem>
+			<listcell label="@load(each.mstMahasiswa.nim)"/>
+			<listcell label="@load(each.mstMahasiswa.nama)"/>
+			<listcell label="@load(each.mstMahasiswa.email)"/>
+		</listitem> 
+	</template>
+</listbox>
+</window>
+</zk>
