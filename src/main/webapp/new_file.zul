@@ -1,0 +1,435 @@
+<?page title="index" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<grid>
+		<columns>
+			<column />
+			<column />
+		</columns>
+		<rows>
+			<row>
+				<label value="Periode" />
+				<combobox>     
+				
+				
+					<comboitem label="ddas" />
+					<comboitem label="dasdsa" />
+				</combobox>
+			</row>
+			<row>
+				<label value="Nama" />
+				<textbox />
+			</row>
+			<row>
+				<label value="NIK" />
+				<textbox />
+			</row>
+		</rows>
+	</grid>
+	<tabbox>
+		<tabs>
+			<tab label="Project 1" />
+			<tab label="Project 2" />
+			<tab label="Project 3" />
+			<tab label="Project 4" />
+			<tab label="Project 5" />
+		</tabs>
+		<tabpanels>
+			<tabpanel>
+				<hbox>
+					<grid>
+						<columns>
+							<column />
+							<column />
+							<column />
+							<column />
+						</columns>
+						<rows>
+							<row>
+								<label value="Project" />
+								<textbox />
+								<label />
+								<label />
+							</row>
+							<row>
+								<label value="Transport" />
+								<doublebox />
+								<label value="Reward Monthly" />
+								<doublebox />
+							</row>
+							<row>
+								<label value="Cuti" />
+								<intbox />
+								<label value="Reward Triwulan" />
+								<doublebox />
+							</row>
+							<row>
+								<label value="Sakit" />
+								<intbox />
+								<label value="Taxi" />
+								<doublebox />
+							</row>
+							<row>
+								<label value="Terlambat" />
+								<intbox />
+								<label value="Lembur" />
+								<doublebox />
+							</row>
+							<row>
+								<label />
+								<label />
+								<label value="BPJS" />
+								<doublebox />
+							</row>
+							<row>
+								<label />
+								<label />
+								<label value="Kesehatan" />
+								<doublebox />
+							</row>
+							<row>
+								<label value="" />
+								<label value="" />
+								<label value="Others" />
+								<label />
+							</row>
+							<row>
+								<label />
+								<label />
+								<label value="Entertaint Internal" />
+								<doublebox />
+							</row>
+							<row>
+								<label />
+								<label />
+								<label value="Entertaint Eksternal" />
+								<doublebox />
+							</row>
+						</rows>
+					</grid>
+				</hbox>
+				<button label="Save" onClick="" />
+				<button label="Clear" onClick="" />
+			</tabpanel>
+			<tabpanel>
+				<hbox>
+					<grid>
+						<columns>
+							<column />
+							<column />
+							<column />
+							<column />
+						</columns>
+						<rows>
+							<row>
+								<label value="Project" />
+								<textbox />
+								<label />
+								<label />
+							</row>
+							<row>
+								<label value="Kantor" />
+								<intbox />
+								<label value="Reward Monthly" />
+								<textbox />
+							</row>
+							<row>
+								<label value="Transport" />
+								<intbox />
+								<label value="Reward Triwulan" />
+								<textbox />
+							</row>
+							<row>
+								<label value="Cuti" />
+								<intbox />
+								<label value="Taxi" />
+								<textbox />
+							</row>
+							<row>
+								<label value="Sakit" />
+								<intbox />
+								<label value="Lembur" />
+								<textbox />
+							</row>
+							<row>
+								<label value="Terlambat" />
+								<intbox />
+								<label value="Others" />
+								<label />
+							</row>
+							<row>
+								<label />
+								<label />
+								<label value="Entertaint" />
+								<textbox />
+							</row>
+							<row>
+								<label />
+								<label />
+								<textbox />
+								<textbox />
+							</row>
+						</rows>
+					</grid>
+				</hbox>
+				<button label="Save" onClick="" />
+				<button label="Clear" onClick="" />
+			</tabpanel>
+			<tabpanel>
+				<hbox>
+					<grid>
+						<columns>
+							<column />
+							<column />
+							<column />
+							<column />
+						</columns>
+						<rows>
+							<row>
+								<label value="Project" />
+								<textbox />
+								<label />
+								<label />
+							</row>
+							<row>
+								<label value="Kantor" />
+								<intbox />
+								<label value="Reward Monthly" />
+								<textbox />
+							</row>
+							<row>
+								<label value="Transport" />
+								<intbox />
+								<label value="Reward Triwulan" />
+								<textbox />
+							</row>
+							<row>
+								<label value="Cuti" />
+								<intbox />
+								<label value="Taxi" />
+								<textbox />
+							</row>
+							<row>
+								<label value="Sakit" />
+								<intbox />
+								<label value="Lembur" />
+								<textbox />
+							</row>
+							<row>
+								<label value="Terlambat" />
+								<intbox />
+								<label value="Others" />
+								<label />
+							</row>
+							<row>
+								<label />
+								<label />
+								<label value="Entertaint" />
+								<textbox />
+							</row>
+							<row>
+								<label />
+								<label />
+								<textbox />
+								<textbox />
+							</row>
+						</rows>
+					</grid>
+				</hbox>
+				<button label="Save" onClick="" />
+				<button label="Clear" onClick="" />
+			</tabpanel>
+			<tabpanel>
+				<hbox>
+					<grid>
+						<columns>
+							<column />
+							<column />
+							<column />
+							<column />
+						</columns>
+						<rows>
+							<row>
+								<label value="Project" />
+								<textbox />
+								<label />
+								<label />
+							</row>
+							<row>
+								<label value="Kantor" />
+								<intbox />
+								<label value="Reward Monthly" />
+								<textbox />
+							</row>
+							<row>
+								<label value="Transport" />
+								<intbox />
+								<label value="Reward Triwulan" />
+								<textbox />
+							</row>
+							<row>
+								<label value="Cuti" />
+								<intbox />
+								<label value="Taxi" />
+								<textbox />
+							</row>
+							<row>
+								<label value="Sakit" />
+								<intbox />
+								<label value="Lembur" />
+								<textbox />
+							</row>
+							<row>
+								<label value="Terlambat" />
+								<intbox />
+								<label value="Others" />
+								<label />
+							</row>
+							<row>
+								<label />
+								<label />
+								<label value="Entertaint" />
+								<textbox />
+							</row>
+							<row>
+								<label />
+								<label />
+								<textbox />
+								<textbox />
+							</row>
+						</rows>
+					</grid>
+				</hbox>
+				<button label="Save" onClick="" />
+				<button label="Clear" onClick="" />
+			</tabpanel>
+			<tabpanel>
+				<hbox>
+					<grid>
+						<columns>
+							<column />
+							<column />
+							<column />
+							<column />
+						</columns>
+						<rows>
+							<row>
+								<label value="Project" />
+								<textbox />
+								<label />
+								<label />
+							</row>
+							<row>
+								<label value="Kantor" />
+								<intbox />
+								<label value="Reward Monthly" />
+								<textbox />
+							</row>
+							<row>
+								<label value="Transport" />
+								<intbox />
+								<label value="Reward Triwulan" />
+								<textbox />
+							</row>
+							<row>
+								<label value="Cuti" />
+								<intbox />
+								<label value="Taxi" />
+								<textbox />
+							</row>
+							<row>
+								<label value="Sakit" />
+								<intbox />
+								<label value="Lembur" />
+								<textbox />
+							</row>
+							<row>
+								<label value="Terlambat" />
+								<intbox />
+								<label value="Others" />
+								<label />
+							</row>
+							<row>
+								<label />
+								<label />
+								<label value="Entertaint" />
+								<textbox />
+							</row>
+							<row>
+								<label />
+								<label />
+								<textbox />
+								<textbox />
+							</row>
+						</rows>
+					</grid>
+				</hbox>
+				<button label="Save" onClick="" />
+				<button label="Clear" onClick="" />
+			</tabpanel>
+			<tabpanel>
+				<hbox>
+					<grid>
+						<columns>
+							<column />
+							<column />
+							<column />
+							<column />
+						</columns>
+						<rows>
+							<row>
+								<label value="Project" />
+								<textbox />
+								<label />
+								<label />
+							</row>
+							<row>
+								<label value="Kantor" />
+								<intbox />
+								<label value="Reward Monthly" />
+								<textbox />
+							</row>
+							<row>
+								<label value="Transport" />
+								<intbox />
+								<label value="Reward Triwulan" />
+								<textbox />
+							</row>
+							<row>
+								<label value="Cuti" />
+								<intbox />
+								<label value="Taxi" />
+								<textbox />
+							</row>
+							<row>
+								<label value="Sakit" />
+								<intbox />
+								<label value="Lembur" />
+								<textbox />
+							</row>
+							<row>
+								<label value="Terlambat" />
+								<intbox />
+								<label value="Others" />
+								<label />
+							</row>
+							<row>
+								<label />
+								<label />
+								<label value="Entertaint" />
+								<textbox />
+							</row>
+							<row>
+								<label />
+								<label />
+								<textbox />
+								<textbox />
+							</row>
+						</rows>
+					</grid>
+				</hbox>
+				<button label="Save" onClick="" />
+				<button label="Clear" onClick="" />
+			</tabpanel>
+		</tabpanels>
+	</tabbox>
+</zk>
