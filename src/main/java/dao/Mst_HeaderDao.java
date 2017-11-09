@@ -3,7 +3,6 @@ package dao;
 import java.util.List;
 
 import entity.Mst_Header;
-import entity.Mst_Karyawan;
 
 public interface Mst_HeaderDao {
 	public void save(Mst_Header mstHeader);

@@ -34,7 +34,7 @@ public class ReportDaoImpl implements ReportDao{
 	@Override
 	public void save(Report report) {
 		String query="insert into REPORT "
-				+"(NO, NAMA_KARYAWAN, PROJECT, KANTOR, CUTI, SAKIT, TERLAMBAT, TIPE_KLAIM, JUMLAH, ID_HEADER) "
+				+"(NO, NAMA_KARYAWAN, PROJECT, KANTOR, CUTI, SAKIT, TERLAMBAT, KODE_KLAIM, JUMLAH, ID_HEADER) "
 				+"values (?,?,?,?,?,?,?,?,?,?,?,?,?)";
 		
 		Connection con = null;
@@ -75,7 +75,7 @@ public class ReportDaoImpl implements ReportDao{
 	@Override
 	public void update(Report report) {
 		String query="update from REPORT "
-				+"set NAMA_KARYAWAN=?, PROJECT=?, KANTOR=?, CUTI=?, SAKIT=?, TERLAMBAT=?, REWARD=?, LEMBUR=?, TIPE_KLAIM=?, JUMLAH=?, ID_HEADER=?) "
+				+"set NAMA_KARYAWAN=?, PROJECT=?, KANTOR=?, CUTI=?, SAKIT=?, TERLAMBAT=?, REWARD=?, LEMBUR=?, KODE_KLAIM=?, JUMLAH=?, ID_HEADER=?) "
 				+"where NO=?";
 		
 		Connection con = null;
@@ -146,7 +146,7 @@ public class ReportDaoImpl implements ReportDao{
 
 	@Override
 	public List<Report> findAll() {
-		String query="select NO, NAMA_KARYAWAN, PROJECT, KANTOR, CUTI, SAKIT, TERLAMBAT, TIPE_KLAIM, JUMLAH, ID_HEADER "
+		String query="select NO, NAMA_KARYAWAN, PROJECT, KANTOR, CUTI, SAKIT, TERLAMBAT, KODE_KLAIM, JUMLAH, ID_HEADER "
 				+"FROM LAPORAN";
 		
 		Connection con=null;
@@ -168,7 +168,7 @@ public class ReportDaoImpl implements ReportDao{
 				report.setCuti(rs.getInt("CUTI"));
 				report.setSakit(rs.getInt("SAKIT"));
 				report.setTerlambat(rs.getInt("TERLAMBAT"));
-				String klaim = rs.getString("TIPE_KLAIM");
+				String klaim = rs.getString("KODE_KLAIM");
 				TipeKlaim tipe = tipeKlaimDao.findOne(klaim);
 				report.setTipeKlaim(tipe);
 				report.setJumlah(rs.getDouble("JUMLAH"));
@@ -212,7 +212,7 @@ public class ReportDaoImpl implements ReportDao{
 				reports.setCuti(rs.getInt("CUTI"));
 				reports.setSakit(rs.getInt("SAKIT"));
 				reports.setTerlambat(rs.getInt("TERLAMBAT"));
-				String klaim = rs.getString("TIPE_KLAIM");
+				String klaim = rs.getString("KODE_KLAIM");
 				TipeKlaim tipe = tipeKlaimDao.findOne(klaim);
 				reports.setTipeKlaim(tipe);
 				reports.setJumlah(rs.getDouble("JUMLAH"));
