@@ -9,7 +9,7 @@ public class Report {
 	int cuti;
 	int sakit;
 	int terlambat;
-	Keterangan tipeKlaim;
+	TipeKlaim tipeKlaim;
 	double jumlah;
 	String idHeader;
 	
@@ -63,10 +63,10 @@ public class Report {
 		this.terlambat = terlambat;
 	}
 	
-	public Keterangan getTipeKlaim() {
+	public TipeKlaim getTipeKlaim() {
 		return tipeKlaim;
 	}
-	public void setTipeKlaim(Keterangan tipeKlaim) {
+	public void setTipeKlaim(TipeKlaim tipeKlaim) {
 		this.tipeKlaim = tipeKlaim;
 	}
 	public double getJumlah() {

@@ -12,11 +12,12 @@ import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import dao.KeteranganDao;
 import dao.Mst_KaryawanDao;
 import dao.ReportDao;
+import dao.TipeKlaimDao;
 import entity.Mst_Karyawan;
 import entity.Report;
+import entity.TipeKlaim;
 
 @Repository
 public class ReportDaoImpl implements ReportDao{
@@ -28,7 +29,8 @@ public class ReportDaoImpl implements ReportDao{
 	Mst_KaryawanDao mstKaryawanDao;
 	
 	@Autowired
-	KeteranganDao keteranganDao;
+	TipeKlaimDao tipeKlaimDao;
+	
 	@Override
 	public void save(Report report) {
 		String query="insert into REPORT "
@@ -144,8 +146,8 @@ public class ReportDaoImpl implements ReportDao{
 
 	@Override
 	public List<Report> findAll() {
-		String query="select NO, NAMA_KARYAWAN, PROJECT, KANTOR, TRANSPORT, CUTI, SAKIT, TERLAMBAT, REWARD, LEMBUR, TIPE_KLAIM, JUMLAH, ID_HEADER "
-				+"FROM MST_KARYAWAN";
+		String query="select NO, NAMA_KARYAWAN, PROJECT, KANTOR, CUTI, SAKIT, TERLAMBAT, TIPE_KLAIM, JUMLAH, ID_HEADER "
+				+"FROM LAPORAN";
 		
 		Connection con=null;
 		PreparedStatement ps=null;
@@ -163,14 +165,12 @@ public class ReportDaoImpl implements ReportDao{
 				report.setKaryawan(karyawan);
 				report.setNamaProject(rs.getString("NAMA_PROJECT"));
 				report.setKantor(rs.getString("KANTOR"));
-				report.setTransport(rs.getInt("TRANSPORT"));
 				report.setCuti(rs.getInt("CUTI"));
 				report.setSakit(rs.getInt("SAKIT"));
 				report.setTerlambat(rs.getInt("TERLAMBAT"));
-				report.setReward(rs.getDouble("REWARD"));
-				report.setLembur(rs.getDouble("LEMBUR"));
-				
-				report.setTipeKlaim(rs.getString("TIPE_KLAIM"));
+				String klaim = rs.getString("TIPE_KLAIM");
+				TipeKlaim tipe = tipeKlaimDao.findOne(klaim);
+				report.setTipeKlaim(tipe);
 				report.setJumlah(rs.getDouble("JUMLAH"));
 				
 				
@@ -187,13 +187,49 @@ public class ReportDaoImpl implements ReportDao{
 			}
 		}
 
-		return null;
+		return listDaftar;
 	}
 
 	@Override
 	public Report findOne(String report) {
-		// TODO Auto-generated method stub
-		return null;
+		String query="select * FROM LAPORAN where NO='"+report+"'";
+		
+		Connection con=null;
+		PreparedStatement ps=null;
+		ResultSet rs = null;
+		Report reports = new Report();
+		try{
+			con = dataSource.getConnection();
+			ps = con.prepareStatement(query);
+			rs = ps.executeQuery();
+			while(rs.next()){
+				reports.setNo(rs.getInt("NO"));
+				String nik = rs.getString("NAMA_KARYAWAN");
+				Mst_Karyawan karyawan = mstKaryawanDao.findOne(nik);
+				reports.setKaryawan(karyawan);
+				reports.setNamaProject(rs.getString("NAMA_PROJECT"));
+				reports.setKantor(rs.getString("KANTOR"));
+				reports.setCuti(rs.getInt("CUTI"));
+				reports.setSakit(rs.getInt("SAKIT"));
+				reports.setTerlambat(rs.getInt("TERLAMBAT"));
+				String klaim = rs.getString("TIPE_KLAIM");
+				TipeKlaim tipe = tipeKlaimDao.findOne(klaim);
+				reports.setTipeKlaim(tipe);
+				reports.setJumlah(rs.getDouble("JUMLAH"));
+				
+				
+			}
+		}catch(SQLException e){
+			e.printStackTrace();
+		}finally{
+			try{
+				rs.close();
+				ps.close();
+				con.close();
+			}catch(SQLException e){
+				e.printStackTrace();
+			}
+		}
+		return reports;
 	}
-
 }

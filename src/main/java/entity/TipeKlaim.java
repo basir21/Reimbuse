@@ -1,48 +1,92 @@
 package entity;
 
 public class TipeKlaim {
-	String transport;
-	String parkir;
-	String kesehatan;
-	String bpjs;
-	String rewardTriwulan;
-	Keterangan keterangan;
+	String kodeKlaim;
+	double transport;
+	double parkir;
+	double kesehatan;
+	double bpjs;
+	double rewardMonthly;
+	double rewardTriwulan;
+	double taxi;
+	double lembur;
+	double entertainInternal;
+	double entertainExternal;
+	double other;
 	
-	public Keterangan getKeterangan() {
-		return keterangan;
+	public double getTaxi() {
+		return taxi;
 	}
-	public void setKeterangan(Keterangan keterangan) {
-		this.keterangan = keterangan;
+	public void setTaxi(double taxi) {
+		this.taxi = taxi;
 	}
-	public String getTransport() {
+
+	public double getRewardMonthly() {
+		return rewardMonthly;
+	}
+	public void setRewardMonthly(double rewardMonthly) {
+		this.rewardMonthly = rewardMonthly;
+	}
+	
+	public String getKodeKlaim() {
+		return kodeKlaim;
+	}
+	public void setKodeKlaim(String kodeKlaim) {
+		this.kodeKlaim = kodeKlaim;
+	}
+	public double getOther() {
+		return other;
+	}
+	public void setOther(double other) {
+		this.other = other;
+	}
+	public double getTransport() {
 		return transport;
 	}
-	public void setTransport(String transport) {
-		this.transport = transport;
-	}
-	public String getParkir() {
+	public double getParkir() {
 		return parkir;
 	}
-	public void setParkir(String parkir) {
-		this.parkir = parkir;
-	}
-	public String getKesehatan() {
+	public double getKesehatan() {
 		return kesehatan;
 	}
-	public void setKesehatan(String kesehatan) {
-		this.kesehatan = kesehatan;
-	}
-	public String getBpjs() {
+	public double getBpjs() {
 		return bpjs;
 	}
-	public void setBpjs(String bpjs) {
-		this.bpjs = bpjs;
-	}
-	public String getRewardTriwulan() {
+	public double getRewardTriwulan() {
 		return rewardTriwulan;
 	}
-	public void setRewardTriwulan(String rewardTriwulan) {
-		this.rewardTriwulan = rewardTriwulan;
-	}
 	
+	public double getLembur() {
+		return lembur;
+	}
+	public void setLembur(double lembur) {
+		this.lembur = lembur;
+	}
+	public double getEntertainInternal() {
+		return entertainInternal;
+	}
+	public void setEntertainInternal(double entertainInternal) {
+		this.entertainInternal = entertainInternal;
+	}
+	public double getEntertainExternal() {
+		return entertainExternal;
+	}
+	public void setEntertainExternal(double entertainExternal) {
+		this.entertainExternal = entertainExternal;
+	}
+	public void setTransport(double transport) {
+		this.transport = transport;
+	}
+	public void setParkir(double parkir) {
+		this.parkir = parkir;
+	}
+	public void setKesehatan(double kesehatan) {
+		this.kesehatan = kesehatan;
+	}
+	public void setBpjs(double bpjs) {
+		this.bpjs = bpjs;
+	}
+	public void setRewardTriwulan(double rewardTriwulan) {
+		this.rewardTriwulan = rewardTriwulan;
+	}	
 }
