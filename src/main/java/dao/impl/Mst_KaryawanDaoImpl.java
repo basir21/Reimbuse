@@ -163,7 +163,6 @@ public class Mst_KaryawanDaoImpl implements Mst_KaryawanDao{
 				e.printStackTrace();
 			}
 		}
-
 		return listDaftar;
 	}
 
