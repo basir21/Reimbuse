@@ -1,5 +1,7 @@
 <?page title="index" contentType="text/html;charset=UTF-8"?>
 <zk>
+<window apply="org.zkoss.bind.BindComposer"
+viewModel="@id('vm')@init('vmd.KaryawanVmd')">
 	<grid>
 		<columns>
 			<column />
@@ -8,16 +10,18 @@
 		<rows>
 			<row>
 				<label value="Periode" />
-				<combobox>     
+				<combobox constraint="no empty: harus diisi" model="@load(vm.listHeader)"
+				selectedItem="@bind(vm.mst_Header.idHeader)" value="@load(vm.mst_Header.namaBulan)">     
 				
-				
-					<comboitem label="ddas" />
-					<comboitem label="dasdsa" />
+				<template name="model">
+						<comboitem label="@load(each.namaBulan)" />
+				</template>
+					
 				</combobox>
 			</row>
 			<row>
 				<label value="Nama" />
-				<textbox />
+				<textbox value="@bind(vm.tampungNama)" onOK="@command('search')"/>
 			</row>
 			<row>
 				<label value="NIK" />
@@ -432,4 +436,5 @@
 			</tabpanel>
 		</tabpanels>
 	</tabbox>
+	</window>
 </zk>
