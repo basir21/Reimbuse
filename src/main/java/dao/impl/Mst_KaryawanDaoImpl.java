@@ -25,7 +25,7 @@ public class Mst_KaryawanDaoImpl implements Mst_KaryawanDao{
 	public void save(Mst_Karyawan mstKaryawan) {
 		String query="insert into MST_KARYAWAN "
 				+"(NIK, NAMA, JENIS_KELAMIN, ICN, TANGGAL_MASUK, NO_ABSEN, NO_REK) "
-				+"values (?,?,?,?,?,?)";
+				+"values (?,?,?,?,?,?,?)";
 		
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -61,22 +61,23 @@ public class Mst_KaryawanDaoImpl implements Mst_KaryawanDao{
 
 	@Override
 	public void update(Mst_Karyawan mstKaryawan) {
-		String query="update from MST_KARYAWAN "
-				+"set NAMA=?, JENIS_KELAMIN=?, ICN=?, TANGGAL_MASUK=?, NO_ABSEN=?, NO_REK=?) "
-				+"where NIK=?";
+		String query="update MST_KARYAWAN "
+				+"set NIK=?, JENIS_KELAMIN=?, ICN=?, TANGGAL_MASUK=?, NO_ABSEN=?, NO_REK=? "
+				+"where NAMA=?";
 		
 		Connection con = null;
 		PreparedStatement ps = null;
 		try{
 			con = dataSource.getConnection();
 			ps = con.prepareStatement(query);
-			ps.setString(1, mstKaryawan.getNamaKaryawan());
+			
+			ps.setInt(1, mstKaryawan.getNik());
 			ps.setString(2, mstKaryawan.getJenisKelamin());
 			ps.setString(3, mstKaryawan.getIcn());
 			ps.setDate(4, mstKaryawan.getTanggalMasuk());
 			ps.setString(5, mstKaryawan.getNoAbsen());
 			ps.setString(6, mstKaryawan.getNoRek());
-			ps.setInt(7, mstKaryawan.getNik());
+			ps.setString(7, mstKaryawan.getNamaKaryawan());
 			
 			int out = ps.executeUpdate();
 			if(out!=0){
@@ -168,7 +169,7 @@ public class Mst_KaryawanDaoImpl implements Mst_KaryawanDao{
 
 	@Override
 	public Mst_Karyawan findOne(String mstKaryawan) {
-		String query="select * FROM MST_KARYAWAN WHERE NIK='"+mstKaryawan+"'";
+		String query="select * FROM MST_KARYAWAN WHERE NAMA='"+mstKaryawan+"'";
 		
 		Connection con=null;
 		PreparedStatement ps=null;

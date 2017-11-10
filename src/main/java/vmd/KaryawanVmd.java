@@ -47,15 +47,19 @@ public class KaryawanVmd {
 	
 	@Init
 	public void load(){
+		listHeader = mst_HeaderSvc.findAll();
 		
 	}
 	
 	@Command("search")
 	@NotifyChange("listReports")
 	public void SearchNama(){
+		
 		listReports.clear();
 		listReports = reportSvc.findKaryawan(tampungNama);
 	}
+	
+	
 	
 	public String getTampungNama() {
 		return tampungNama;

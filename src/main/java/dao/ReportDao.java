@@ -11,4 +11,5 @@ public interface ReportDao {
 	public List<Report> findAll();
 	public Report findOne(String report);
 	public List<Report> findKaryawan(String report);
+	
 }

@@ -57,8 +57,8 @@ public class MstHeaderDaoImpl implements Mst_HeaderDao{
 
 	@Override
 	public void update(Mst_Header mstHeader) {
-		String query="update from PERIODE "
-				+"set NAMA_BULAN "
+		String query="update PERIODE "
+				+"set NAMA_BULAN=? "
 				+"where ID_HEADER=?";
 		
 		Connection con = null;
@@ -66,6 +66,7 @@ public class MstHeaderDaoImpl implements Mst_HeaderDao{
 		try{
 			con = dataSource.getConnection();
 			ps = con.prepareStatement(query);
+			
 			ps.setString(1, mstHeader.getNamaBulan());
 			ps.setString(2, mstHeader.getIdHeader());
 			
@@ -122,7 +123,7 @@ public class MstHeaderDaoImpl implements Mst_HeaderDao{
 	@Override
 	public List<Mst_Header> findAll() {
 		String query="select ID_HEADER, NAMA_BULAN "
-				+"FROM MST_KARYAWAN";
+				+"FROM PERIODE";
 		
 		Connection con=null;
 		PreparedStatement ps=null;
@@ -154,7 +155,7 @@ public class MstHeaderDaoImpl implements Mst_HeaderDao{
 
 	@Override
 	public Mst_Header findOne(String mstHeader) {
-		String query="select * FROM MST_KARYAWAN "
+		String query="select * FROM PERIODE "
 				+"WHERE ID_HEADER='"+mstHeader+"'";
 		
 		Connection con=null;

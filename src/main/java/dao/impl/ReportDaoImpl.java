@@ -136,6 +136,7 @@ public class ReportDaoImpl implements ReportDao{
 			e.printStackTrace();
 		}finally{
 			try{
+				
 				ps.close();
 				con.close();
 			}catch(SQLException e){
@@ -146,7 +147,7 @@ public class ReportDaoImpl implements ReportDao{
 
 	@Override
 	public List<Report> findAll() {
-		String query="select NO, NAMA_KARYAWAN, PROJECT, KANTOR, CUTI, SAKIT, TERLAMBAT, KODE_KLAIM, JUMLAH, ID_HEADER "
+		String query="select * "
 				+"FROM LAPORAN";
 		
 		Connection con=null;
@@ -163,17 +164,17 @@ public class ReportDaoImpl implements ReportDao{
 				String nik = rs.getString("NAMA_KARYAWAN");
 				Mst_Karyawan karyawan = mstKaryawanDao.findOne(nik);
 				report.setKaryawan(karyawan);
-				report.setNamaProject(rs.getString("NAMA_PROJECT"));
+				report.setNamaProject(rs.getString("PROJECT"));
 				report.setKantor(rs.getString("KANTOR"));
 				report.setCuti(rs.getInt("CUTI"));
 				report.setSakit(rs.getInt("SAKIT"));
 				report.setTerlambat(rs.getInt("TERLAMBAT"));
-				String klaim = rs.getString("KODE_KLAIM");
-				TipeKlaim tipe = tipeKlaimDao.findOne(klaim);
-				report.setTipeKlaim(tipe);
+//				String klaim = rs.getString("KODE_KLAIM");
+//				TipeKlaim tipe = tipeKlaimDao.findOne(klaim);
+//				report.setTipeKlaim(tipe);
 				report.setJumlah(rs.getDouble("JUMLAH"));
 				
-				
+				listDaftar.add(report);
 			}
 		}catch(SQLException e){
 			e.printStackTrace();
