@@ -266,4 +266,47 @@ public class ReportDaoImpl implements ReportDao{
 		}
 		return listDaftar;
 	}
+
+	@Override
+	public Report findPeriode(String bulan) {
+		String query="select * FROM LAPORAN where ID_HEADER='"+bulan+"'";
+		
+		Connection con=null;
+		PreparedStatement ps=null;
+		ResultSet rs = null;
+		Report reports = new Report();
+		try{
+			con = dataSource.getConnection();
+			ps = con.prepareStatement(query);
+			rs = ps.executeQuery();
+			while(rs.next()){
+				reports.setNo(rs.getInt("NO"));
+				String nik = rs.getString("NAMA_KARYAWAN");
+				Mst_Karyawan karyawan = mstKaryawanDao.findOne(nik);
+				reports.setKaryawan(karyawan);
+				reports.setNamaProject(rs.getString("NAMA_PROJECT"));
+				reports.setKantor(rs.getString("KANTOR"));
+				reports.setCuti(rs.getInt("CUTI"));
+				reports.setSakit(rs.getInt("SAKIT"));
+				reports.setTerlambat(rs.getInt("TERLAMBAT"));
+				String klaim = rs.getString("KODE_KLAIM");
+				TipeKlaim tipe = tipeKlaimDao.findOne(klaim);
+				reports.setTipeKlaim(tipe);
+				reports.setJumlah(rs.getDouble("JUMLAH"));
+				
+				
+			}
+		}catch(SQLException e){
+			e.printStackTrace();
+		}finally{
+			try{
+				rs.close();
+				ps.close();
+				con.close();
+			}catch(SQLException e){
+				e.printStackTrace();
+			}
+		}
+		return reports;
+	}
 }

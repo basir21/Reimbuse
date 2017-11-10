@@ -20,9 +20,9 @@ public class findAll {
 
 		Mst_KaryawanDao mst_KaryawanDao = ctx.getBean(Mst_KaryawanDao.class);
 		
-//		Mst_Karyawan mst_Karyawan = mst_KaryawanDao.findOne("Bharat Ongso");
-//		System.out.println(mst_Karyawan.getNamaKaryawan());
-//		
+		//Mst_Karyawan mst_Karyawan = mst_KaryawanDao.findOne("Bharat Ongso");
+		//System.out.println(mst_Karyawan.getNamaKaryawan());
+		
 		//List<Mst_Karyawan> listKaryawan = mst_KaryawanDao.findAll();
 		//for(Mst_Karyawan k : listKaryawan){
 		//	System.out.println(k.getNamaKaryawan());
@@ -48,18 +48,18 @@ public class findAll {
 //		input.setNoRek("");
 //		input.setTanggalMasuk(new Date(0));
 //		mst_KaryawanDao.save(input);
-//		
+		
 		
 		Mst_HeaderDao mst_HeaderDao = ctx.getBean(Mst_HeaderDao.class);
 //		Mst_Header input = new Mst_Header();
 //		input.setIdHeader("H001");
 //		input.setNamaBulan("September");
 //		mst_HeaderDao.save(input);
-		
+//		
 //		Mst_Karyawan kar = mst_KaryawanDao.findOne("Mas Aris");
 //		kar.setNoRek("100-423-1232");
 //		mst_KaryawanDao.update(kar);
-//		
+		
 //		Mst_Header head = mst_HeaderDao.findOne("H001");
 //		//head.setIdHeader("H002");
 //		head.setNamaBulan("OKTOBER");

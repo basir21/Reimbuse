@@ -57,6 +57,7 @@ public class KaryawanVmd {
 		
 		listReports.clear();
 		listReports = reportSvc.findKaryawan(tampungNama);
+		
 	}
 	
 	

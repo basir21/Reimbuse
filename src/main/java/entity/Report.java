@@ -11,12 +11,12 @@ public class Report {
 	int terlambat;
 	TipeKlaim tipeKlaim;
 	double jumlah;
-	String idHeader;
+	Mst_Header idHeader;
 	
-	public String getIdHeader() {
+	public Mst_Header getIdHeader() {
 		return idHeader;
 	}
-	public void setIdHeader(String idHeader) {
+	public void setIdHeader(Mst_Header idHeader) {
 		this.idHeader = idHeader;
 	}
 	public int getNo() {

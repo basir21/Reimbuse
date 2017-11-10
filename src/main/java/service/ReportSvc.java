@@ -11,5 +11,6 @@ public interface ReportSvc {
 	public List<Report> findAll();
 	public Report findOne(String report);
 	public List<Report> findKaryawan(String report);
+	public Report findPeriode(String bulan);
 
 }

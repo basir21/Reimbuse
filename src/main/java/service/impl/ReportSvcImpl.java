@@ -44,4 +44,9 @@ public class ReportSvcImpl implements ReportSvc {
 	public List<Report> findKaryawan(String report) {
 		return reportDao.findKaryawan(report);
 	}
+
+	@Override
+	public Report findPeriode(String bulan) {
+		return reportDao.findPeriode(bulan);
+	}
 }
