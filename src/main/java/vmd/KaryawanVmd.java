@@ -3,11 +3,17 @@ package vmd;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.enterprise.inject.New;
+
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
+import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
+import org.zkoss.zul.Comboitem;
+import org.zkoss.zul.ComboitemRenderer;
+import org.zkoss.zul.SimpleListModel;
 
 import entity.Mst_Header;
 import entity.Mst_Karyawan;
@@ -48,9 +54,9 @@ public class KaryawanVmd {
 	@Init
 	public void load(){
 		listHeader = mst_HeaderSvc.findAll();
-		
+		listkaryawan = mst_KaryawanSvc.findAll();
 	}
-	
+
 	@Command("search")
 	@NotifyChange("listReports")
 	public void SearchNama(){
