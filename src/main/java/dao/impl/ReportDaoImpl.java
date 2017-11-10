@@ -232,4 +232,37 @@ public class ReportDaoImpl implements ReportDao{
 		}
 		return reports;
 	}
+
+	@Override
+	public List<Report> findKaryawan(String searchKey) {
+		String query="select NO, NAMA_KARYAWAN "
+				+"FROM LAPORAN where NAMA_KARYAWAN LIKE '%"+searchKey+"%'";
+		
+		Connection con=null;
+		PreparedStatement ps=null;
+		ResultSet rs = null;
+		List<Report> listDaftar= new ArrayList<>();
+		try{
+			con = dataSource.getConnection();
+			ps = con.prepareStatement(query);
+			rs = ps.executeQuery();
+			while(rs.next()){
+				Report report = new Report();
+				report.setNo(rs.getInt("NO"));
+				String nik = rs.getString("NAMA_KARYAWAN");				
+				
+			}
+		}catch(SQLException e){
+			e.printStackTrace();
+		}finally{
+			try{
+				rs.close();
+				ps.close();
+				con.close();
+			}catch(SQLException e){
+				e.printStackTrace();
+			}
+		}
+		return listDaftar;
+	}
 }

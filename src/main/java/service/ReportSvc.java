@@ -10,4 +10,6 @@ public interface ReportSvc {
 	public void delete(String report);
 	public List<Report> findAll();
 	public Report findOne(String report);
+	public List<Report> findKaryawan(String report);
+
 }
