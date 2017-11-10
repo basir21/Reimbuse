@@ -12,4 +12,5 @@ public interface ReportDao {
 	public Report findOne(String report);
 	public List<Report> findKaryawan(String report);
 	public Report findPeriode(String bulan);
+	public Report findOneKaryawan(String karya);
 }

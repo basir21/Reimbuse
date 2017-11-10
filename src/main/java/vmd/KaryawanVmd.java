@@ -8,9 +8,13 @@ import javax.enterprise.inject.New;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
+import org.zkoss.zhtml.Messagebox;
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
+import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
+import org.zkoss.zkplus.acegi.ShowWindowEventListener;
 import org.zkoss.zul.Comboitem;
 import org.zkoss.zul.ComboitemRenderer;
 import org.zkoss.zul.SimpleListModel;
@@ -49,31 +53,41 @@ public class KaryawanVmd {
 	List<Report> listReports = new ArrayList<>();
 	double total;
 	double penampung;
-	String tampungNama;
+	Mst_Karyawan tampungKaryawan = new Mst_Karyawan();
+	Report reportByNama = new Report();
 	
+	
+	
+
 	@Init
 	public void load(){
 		listHeader = mst_HeaderSvc.findAll();
 		listkaryawan = mst_KaryawanSvc.findAll();
 	}
 
+	@Command("getDetail")
+	@NotifyChange("reportByNama")
+	public void getDetail(){
+		reportByNama = reportSvc.findOneKaryawan(tampungKaryawan.getNamaKaryawan());
+		System.out.println(reportByNama.getNamaProject());
+	}
+	
 	@Command("search")
 	@NotifyChange("listReports")
 	public void SearchNama(){
 		
 		listReports.clear();
-		listReports = reportSvc.findKaryawan(tampungNama);
+//		listReports = reportSvc.findKaryawan(tampungNama);
 		
-	}
-	
-	
-	
-	public String getTampungNama() {
-		return tampungNama;
+	}	
+
+
+	public Mst_Karyawan getTampungKaryawan() {
+		return tampungKaryawan;
 	}
 
-	public void setTampungNama(String tampungNama) {
-		this.tampungNama = tampungNama;
+	public void setTampungKaryawan(Mst_Karyawan tampungKaryawan) {
+		this.tampungKaryawan = tampungKaryawan;
 	}
 
 	public Mst_Header getMst_Header() {
@@ -137,5 +151,11 @@ public class KaryawanVmd {
 		this.penampung = penampung;
 	}
 	
-	
+	public Report getReportByNama() {
+		return reportByNama;
+	}
+
+	public void setReportByNama(Report reportByNama) {
+		this.reportByNama = reportByNama;
+	}
 }

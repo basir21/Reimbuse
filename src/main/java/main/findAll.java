@@ -18,6 +18,10 @@ public class findAll {
 	public static void main(String[]args ){
 		ApplicationContext ctx = new ClassPathXmlApplicationContext("/META-INF/spring/app-config.xml");
 
+		ReportDao reportDao = ctx.getBean(ReportDao.class);
+		Report report = reportDao.findOneKaryawan("Fadhlan Ahdian Pratama");
+		System.out.println(report.getNamaProject());
+		
 		Mst_KaryawanDao mst_KaryawanDao = ctx.getBean(Mst_KaryawanDao.class);
 		
 		//Mst_Karyawan mst_Karyawan = mst_KaryawanDao.findOne("Bharat Ongso");

@@ -23,7 +23,9 @@
 				</row>
 				<row>
 					<label value="Nama" />
-					<combobox model="@load(vm.listkaryawan)" buttonVisible="false" autodrop="true" >
+					<combobox id="comboNama" model="@load(vm.listkaryawan)" 
+					buttonVisible="false"
+					selectedItem="@bind(vm.tampungKaryawan)" onSelect="@command('getDetail')">
 						<template name="model">
 							<comboitem label="@load(each.namaKaryawan)" />
 						</template>
@@ -31,7 +33,7 @@
 				</row>
 				<row>
 					<label value="NIK" />
-					<textbox />
+					<textbox value="@load(vm.reportByNama.karyawan.nik)" />
 				</row>
 			</rows>
 		</grid>
