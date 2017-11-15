@@ -19,8 +19,18 @@ public class findAll {
 		ApplicationContext ctx = new ClassPathXmlApplicationContext("/META-INF/spring/app-config.xml");
 
 		ReportDao reportDao = ctx.getBean(ReportDao.class);
-		Report report = reportDao.findOneKaryawan("Fadhlan Ahdian Pratama");
-		System.out.println(report.getNamaProject());
+		Mst_HeaderDao header = ctx.getBean(Mst_HeaderDao.class);
+		Mst_Header head = header.findPeriode(9, 2017);
+		
+		List<Report> listReport = reportDao.findByPeriode(head);
+		for(Report r : listReport){
+			System.out.println(r.getKaryawan().getNamaKaryawan());
+		}
+		
+//		Mst_HeaderDao header = ctx.getBean(Mst_HeaderDao.class);
+//		Mst_Header head = header.findPeriode(9, 2017);
+//		
+//		System.out.println(head.getIdHeader());
 		
 		Mst_KaryawanDao mst_KaryawanDao = ctx.getBean(Mst_KaryawanDao.class);
 		
@@ -55,6 +65,8 @@ public class findAll {
 		
 		
 		Mst_HeaderDao mst_HeaderDao = ctx.getBean(Mst_HeaderDao.class);
+		
+		
 //		Mst_Header input = new Mst_Header();
 //		input.setIdHeader("H001");
 //		input.setNamaBulan("September");

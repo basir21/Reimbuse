@@ -24,7 +24,7 @@ public class MstHeaderDaoImpl implements Mst_HeaderDao{
 	@Override
 	public void save(Mst_Header mstHeader) {
 		String query="insert into PERIODE "
-				+"(ID_HEADER, NAMA_BULAN) "
+				+"(ID_HEADER, NAMA_PERIODE) "
 				+"values (?,?)";
 		
 		Connection con = null;
@@ -33,7 +33,7 @@ public class MstHeaderDaoImpl implements Mst_HeaderDao{
 			con = dataSource.getConnection();
 			ps = con.prepareStatement(query);
 			ps.setString(1, mstHeader.getIdHeader());
-			ps.setString(2, mstHeader.getNamaBulan());
+			ps.setDate(2, mstHeader.getNamaBulan());
 			
 			int out = ps.executeUpdate();
 			if(out!=0){
@@ -58,7 +58,7 @@ public class MstHeaderDaoImpl implements Mst_HeaderDao{
 	@Override
 	public void update(Mst_Header mstHeader) {
 		String query="update PERIODE "
-				+"set NAMA_BULAN=? "
+				+"set NAMA_PERIODE=? "
 				+"where ID_HEADER=?";
 		
 		Connection con = null;
@@ -67,7 +67,7 @@ public class MstHeaderDaoImpl implements Mst_HeaderDao{
 			con = dataSource.getConnection();
 			ps = con.prepareStatement(query);
 			
-			ps.setString(1, mstHeader.getNamaBulan());
+			ps.setDate(1, mstHeader.getNamaBulan());
 			ps.setString(2, mstHeader.getIdHeader());
 			
 			int out = ps.executeUpdate();
@@ -122,7 +122,7 @@ public class MstHeaderDaoImpl implements Mst_HeaderDao{
 
 	@Override
 	public List<Mst_Header> findAll() {
-		String query="select ID_HEADER, NAMA_BULAN "
+		String query="select ID_HEADER, NAMA_PERIODE "
 				+"FROM PERIODE";
 		
 		Connection con=null;
@@ -136,7 +136,7 @@ public class MstHeaderDaoImpl implements Mst_HeaderDao{
 			while(rs.next()){
 				Mst_Header mstHeader = new Mst_Header();
 				mstHeader.setIdHeader(rs.getString("ID_HEADER"));
-				mstHeader.setNamaBulan(rs.getString("NAMA_BULAN"));
+				mstHeader.setNamaBulan(rs.getDate("NAMA_PERIODE"));
 				listDaftar.add(mstHeader);
 			}
 		}catch(SQLException e){
@@ -154,9 +154,10 @@ public class MstHeaderDaoImpl implements Mst_HeaderDao{
 	}
 
 	@Override
-	public Mst_Header findOne(String mstHeader) {
+	public Mst_Header findPeriode(int bulan, int tahun) {
 		String query="select * FROM PERIODE "
-				+"WHERE ID_HEADER='"+mstHeader+"'";
+				+"WHERE MONTH(NAMA_PERIODE) ='"+bulan+"' "
+						+ "and YEAR(NAMA_PERIODE) ='"+tahun+"'";
 		
 		Connection con=null;
 		PreparedStatement ps=null;
@@ -168,7 +169,7 @@ public class MstHeaderDaoImpl implements Mst_HeaderDao{
 			rs = ps.executeQuery();
 			while(rs.next()){
 				mstHeaders.setIdHeader(rs.getString("ID_HEADER"));
-				mstHeaders.setNamaBulan(rs.getString("NAMA_BULAN"));
+				mstHeaders.setNamaBulan(rs.getDate("NAMA_PERIODE"));
 			}
 		}catch(SQLException e){
 			e.printStackTrace();
@@ -183,5 +184,4 @@ public class MstHeaderDaoImpl implements Mst_HeaderDao{
 		}
 		return mstHeaders;
 	}
-	
 }

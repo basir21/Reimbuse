@@ -10,22 +10,17 @@
 			<rows>
 				<row>
 					<label value="Periode" />
-					<combobox constraint="no empty: harus diisi"
-						model="@load(vm.listHeader)"
-						selectedItem="@bind(vm.mst_Header.idHeader)"
-						value="@load(vm.mst_Header.namaBulan)">
-
-						<template name="model">
-							<comboitem label="@load(each.namaBulan)" />
-						</template>
-
-					</combobox>
+					<datebox id="dateInvoices" cols="20"
+						sclass="datebox-month-only" format="MMMM yyyy" constraint="no future"
+						value="@bind(vm.selectedDate)"
+						onChange="@command('getPeriode')" />
 				</row>
 				<row>
 					<label value="Nama" />
-					<combobox id="comboNama" model="@load(vm.listkaryawan)" 
-					buttonVisible="false"
-					selectedItem="@bind(vm.tampungKaryawan)" onSelect="@command('getDetail')">
+					<combobox id="comboNama"
+						model="@load(vm.listkaryawan)" buttonVisible="false"
+						selectedItem="@bind(vm.tampungKaryawan)"
+						onSelect="@command('getDetail')">
 						<template name="model">
 							<comboitem label="@load(each.namaKaryawan)" />
 						</template>
@@ -33,416 +28,159 @@
 				</row>
 				<row>
 					<label value="NIK" />
-					<textbox value="@load(vm.reportByNama.karyawan.nik)" />
+					<textbox
+						value="@load(vm.reportByNama.karyawan.nik)" />
 				</row>
 			</rows>
 		</grid>
-		<tabbox>
-			<tabs>
-				<tab label="Project 1" />
-				<tab label="Project 2" />
-				<tab label="Project 3" />
-				<tab label="Project 4" />
-				<tab label="Project 5" />
-			</tabs>
-			<tabpanels>
+		
+		<tabbox model="@load(vm.listReports)" >
+			<template name="model:tab" var="detail">
+				<tab label="@load(detail.namaProject.namaProject)" />
+			</template>
+			<template name="model:tabpanel" var="detail">
 				<tabpanel>
-					<hbox>
-						<grid>
-							<columns>
-								<column />
-								<column />
-								<column />
-								<column />
-							</columns>
-							<rows>
-								<row>
-									<label value="Project" />
-									<textbox />
-									<label />
-									<label />
-								</row>
-								<row>
-									<label value="Transport" />
-									<doublebox />
-									<label value="Reward Monthly" />
-									<doublebox />
-								</row>
-								<row>
-									<label value="Cuti" />
-									<intbox />
-									<label value="Reward Triwulan" />
-									<doublebox />
-								</row>
-								<row>
-									<label value="Sakit" />
-									<intbox />
-									<label value="Taxi" />
-									<doublebox />
-								</row>
-								<row>
-									<label value="Terlambat" />
-									<intbox />
-									<label value="Lembur" />
-									<doublebox />
-								</row>
-								<row>
-									<label />
-									<label />
-									<label value="BPJS" />
-									<doublebox />
-								</row>
-								<row>
-									<label />
-									<label />
-									<label value="Kesehatan" />
-									<doublebox />
-								</row>
-								<row>
-									<label value="" />
-									<label value="" />
-									<label value="Others" />
-									<label />
-								</row>
-								<row>
-									<label />
-									<label />
-									<label value="Entertaint Internal" />
-									<doublebox />
-								</row>
-								<row>
-									<label />
-									<label />
-									<label value="Entertaint Eksternal" />
-									<doublebox />
-								</row>
-							</rows>
-						</grid>
-					</hbox>
-					<button label="Save" onClick="" />
-					<button label="Clear" onClick="" />
+				<hbox>
+							<grid>
+								<columns>
+									<column />
+									<column />
+									<column />
+									<column />
+								</columns>
+								<rows>
+									<row>
+										<label value="Transport" />
+										<doublebox
+											value="@load(detail.tipeKlaim.transport)" />
+										<label value="Reward Monthly" />
+										<doublebox
+											value="@load(detail.tipeKlaim.rewardMonthly)" />
+									</row>
+									<row>
+										<label value="Cuti" />
+										<intbox
+											value="@load(detail.cuti)" />
+										<label value="Reward Triwulan" />
+										<doublebox
+											value="@load(detail.tipeKlaim.rewardTriwulan)" />
+									</row>
+									<row>
+										<label value="Sakit" />
+										<intbox
+											value="@load(detail.sakit)" />
+										<label value="Taxi" />
+										<doublebox
+											value="@load(detail.tipeKlaim.taxi)" />
+									</row>
+									<row>
+										<label value="Terlambat" />
+										<intbox
+											value="@load(detail.terlambat)" />
+										<label value="Lembur" />
+										<doublebox
+											value="@load(detail.tipeKlaim.lembur)" />
+									</row>
+									<row>
+										<label />
+										<label />
+										<label value="BPJS" />
+										<doublebox value="@load(detail.tipeKlaim.bpjs)"/>
+									</row>
+									<row>
+										<label />
+										<label />
+										<label value="Kesehatan" />
+										<doublebox value="@load(detail.tipeKlaim.kesehatan)"/>
+									</row>
+									<row>
+										<label value="" />
+										<label value="" />
+										<label value="Others" />
+										<label />
+									</row>
+									<row>
+										<label />
+										<label />
+										<label
+											value="Entertaint Internal" />
+										<doublebox />
+									</row>
+									<row>
+										<label />
+										<label />
+										<label
+											value="Entertaint Eksternal" />
+										<doublebox />
+									</row>
+								</rows>
+							</grid>
+						</hbox>
+						<button label="Simpan" onClick="@command('simpan')"/>
 				</tabpanel>
-				<tabpanel>
-					<hbox>
-						<grid>
-							<columns>
-								<column />
-								<column />
-								<column />
-								<column />
-							</columns>
-							<rows>
-								<row>
-									<label value="Project" />
-									<textbox />
-									<label />
-									<label />
-								</row>
-								<row>
-									<label value="Kantor" />
-									<intbox />
-									<label value="Reward Monthly" />
-									<textbox />
-								</row>
-								<row>
-									<label value="Transport" />
-									<intbox />
-									<label value="Reward Triwulan" />
-									<textbox />
-								</row>
-								<row>
-									<label value="Cuti" />
-									<intbox />
-									<label value="Taxi" />
-									<textbox />
-								</row>
-								<row>
-									<label value="Sakit" />
-									<intbox />
-									<label value="Lembur" />
-									<textbox />
-								</row>
-								<row>
-									<label value="Terlambat" />
-									<intbox />
-									<label value="Others" />
-									<label />
-								</row>
-								<row>
-									<label />
-									<label />
-									<label value="Entertaint" />
-									<textbox />
-								</row>
-								<row>
-									<label />
-									<label />
-									<textbox />
-									<textbox />
-								</row>
-							</rows>
-						</grid>
-					</hbox>
-					<button label="Save" onClick="" />
-					<button label="Clear" onClick="" />
-				</tabpanel>
-				<tabpanel>
-					<hbox>
-						<grid>
-							<columns>
-								<column />
-								<column />
-								<column />
-								<column />
-							</columns>
-							<rows>
-								<row>
-									<label value="Project" />
-									<textbox />
-									<label />
-									<label />
-								</row>
-								<row>
-									<label value="Kantor" />
-									<intbox />
-									<label value="Reward Monthly" />
-									<textbox />
-								</row>
-								<row>
-									<label value="Transport" />
-									<intbox />
-									<label value="Reward Triwulan" />
-									<textbox />
-								</row>
-								<row>
-									<label value="Cuti" />
-									<intbox />
-									<label value="Taxi" />
-									<textbox />
-								</row>
-								<row>
-									<label value="Sakit" />
-									<intbox />
-									<label value="Lembur" />
-									<textbox />
-								</row>
-								<row>
-									<label value="Terlambat" />
-									<intbox />
-									<label value="Others" />
-									<label />
-								</row>
-								<row>
-									<label />
-									<label />
-									<label value="Entertaint" />
-									<textbox />
-								</row>
-								<row>
-									<label />
-									<label />
-									<textbox />
-									<textbox />
-								</row>
-							</rows>
-						</grid>
-					</hbox>
-					<button label="Save" onClick="" />
-					<button label="Clear" onClick="" />
-				</tabpanel>
-				<tabpanel>
-					<hbox>
-						<grid>
-							<columns>
-								<column />
-								<column />
-								<column />
-								<column />
-							</columns>
-							<rows>
-								<row>
-									<label value="Project" />
-									<textbox />
-									<label />
-									<label />
-								</row>
-								<row>
-									<label value="Kantor" />
-									<intbox />
-									<label value="Reward Monthly" />
-									<textbox />
-								</row>
-								<row>
-									<label value="Transport" />
-									<intbox />
-									<label value="Reward Triwulan" />
-									<textbox />
-								</row>
-								<row>
-									<label value="Cuti" />
-									<intbox />
-									<label value="Taxi" />
-									<textbox />
-								</row>
-								<row>
-									<label value="Sakit" />
-									<intbox />
-									<label value="Lembur" />
-									<textbox />
-								</row>
-								<row>
-									<label value="Terlambat" />
-									<intbox />
-									<label value="Others" />
-									<label />
-								</row>
-								<row>
-									<label />
-									<label />
-									<label value="Entertaint" />
-									<textbox />
-								</row>
-								<row>
-									<label />
-									<label />
-									<textbox />
-									<textbox />
-								</row>
-							</rows>
-						</grid>
-					</hbox>
-					<button label="Save" onClick="" />
-					<button label="Clear" onClick="" />
-				</tabpanel>
-				<tabpanel>
-					<hbox>
-						<grid>
-							<columns>
-								<column />
-								<column />
-								<column />
-								<column />
-							</columns>
-							<rows>
-								<row>
-									<label value="Project" />
-									<textbox />
-									<label />
-									<label />
-								</row>
-								<row>
-									<label value="Kantor" />
-									<intbox />
-									<label value="Reward Monthly" />
-									<textbox />
-								</row>
-								<row>
-									<label value="Transport" />
-									<intbox />
-									<label value="Reward Triwulan" />
-									<textbox />
-								</row>
-								<row>
-									<label value="Cuti" />
-									<intbox />
-									<label value="Taxi" />
-									<textbox />
-								</row>
-								<row>
-									<label value="Sakit" />
-									<intbox />
-									<label value="Lembur" />
-									<textbox />
-								</row>
-								<row>
-									<label value="Terlambat" />
-									<intbox />
-									<label value="Others" />
-									<label />
-								</row>
-								<row>
-									<label />
-									<label />
-									<label value="Entertaint" />
-									<textbox />
-								</row>
-								<row>
-									<label />
-									<label />
-									<textbox />
-									<textbox />
-								</row>
-							</rows>
-						</grid>
-					</hbox>
-					<button label="Save" onClick="" />
-					<button label="Clear" onClick="" />
-				</tabpanel>
-				<tabpanel>
-					<hbox>
-						<grid>
-							<columns>
-								<column />
-								<column />
-								<column />
-								<column />
-							</columns>
-							<rows>
-								<row>
-									<label value="Project" />
-									<textbox />
-									<label />
-									<label />
-								</row>
-								<row>
-									<label value="Kantor" />
-									<intbox />
-									<label value="Reward Monthly" />
-									<textbox />
-								</row>
-								<row>
-									<label value="Transport" />
-									<intbox />
-									<label value="Reward Triwulan" />
-									<textbox />
-								</row>
-								<row>
-									<label value="Cuti" />
-									<intbox />
-									<label value="Taxi" />
-									<textbox />
-								</row>
-								<row>
-									<label value="Sakit" />
-									<intbox />
-									<label value="Lembur" />
-									<textbox />
-								</row>
-								<row>
-									<label value="Terlambat" />
-									<intbox />
-									<label value="Others" />
-									<label />
-								</row>
-								<row>
-									<label />
-									<label />
-									<label value="Entertaint" />
-									<textbox />
-								</row>
-								<row>
-									<label />
-									<label />
-									<textbox />
-									<textbox />
-								</row>
-							</rows>
-						</grid>
-					</hbox>
-					<button label="Save" onClick="" />
-					<button label="Clear" onClick="" />
-				</tabpanel>
-			</tabpanels>
+			</template>
 		</tabbox>
 	</window>
+					    <script><![CDATA[
+        zk.afterLoad("zul.db", function () {
+            // Datebox Calendar Renderer
+            var _Cwgt = {};
+            zk.override(zul.db.CalendarPop.prototype, _Cwgt, {
+                // switch the view after redraw or open as needed
+                redraw: function (out) {
+                    _Cwgt.redraw.apply(this, arguments); //call the original method
+                    this._customChangeView ();
+                },
+                open: function (silent) {
+                    _Cwgt.open.apply(this, arguments); //call the original method
+                    this._customChangeView ();
+                },
+                _customChangeView: function () {
+                    // cannot show month/day
+                    if (jq(this.parent.$n()).hasClass('datebox-year-only')) {
+                        var view = this._view;
+                        // switch to year view as needed
+                        if (view == 'month' || view == 'day')
+                            this._setView("year");
+                    } else if (jq(this.parent.$n()).hasClass('datebox-month-only')) {
+                        // cannot show day view
+                        // switch to month view as needed
+                        if (this._view == 'day')
+                            this._setView("month");
+                    }
+                },
+                // customize the chooseDate function
+                _chooseDate: function (target, val) {
+                    var view = this._view;
+                    if (jq(this.parent.$n()).hasClass('datebox-month-only')
+                        || jq(this.parent.$n()).hasClass('datebox-year-only')) {
+                        // do customize chooseDate if the parent (datebox)
+                        // has specific class
+                        var date = this.getTime(),
+                            year = (view == 'decade' || view == 'year')? val : date.getFullYear(),
+                            month = view == 'month'? val : 0,
+                            date = 1;
+                        // set date value
+                        this._setTime(year, month, 1);
+                        if (view == 'decade') {
+                            // switch to year view if at decade view
+                            this._setView("year");
+                        } else if (jq(this.parent.$n()).hasClass('datebox-month-only')
+                            && view == 'year') {
+                            // switch to month view if at year view and the month view is allowed
+                            this._setView("month");
+                        } else if (jq(this.parent.$n()).hasClass('datebox-month-only') && view == 'month'
+                            || jq(this.parent.$n()).hasClass('datebox-year-only') && view == 'year') {
+                            // close calendar and update value if already at the smallest allowed view
+                            this.close();
+                            this.parent.setValue(this.getTime());
+                            this.parent.fireOnChange();
+                        }
+                    } else {
+                        _Cwgt._chooseDate.apply(this, arguments); //call the original method
+                    }
+                }
+            });
+        });
+    ]]></script>
 </zk>

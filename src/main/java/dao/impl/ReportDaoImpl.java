@@ -15,6 +15,7 @@ import org.springframework.stereotype.Repository;
 import dao.Mst_KaryawanDao;
 import dao.ReportDao;
 import dao.TipeKlaimDao;
+import entity.Mst_Header;
 import entity.Mst_Karyawan;
 import entity.Project;
 import entity.Report;
@@ -45,7 +46,7 @@ public class ReportDaoImpl implements ReportDao{
 			ps = con.prepareStatement(query);
 			ps.setInt(1, report.getNo());
 			ps.setObject(2, report.getKaryawan());
-			ps.setString(3, report.getNamaProject());
+			ps.setString(3, report.getNamaProject().getNamaProject());
 			ps.setString(4, report.getKantor());
 			ps.setInt(6, report.getCuti());
 			ps.setInt(7, report.getSakit());
@@ -85,7 +86,7 @@ public class ReportDaoImpl implements ReportDao{
 			con = dataSource.getConnection();
 			ps = con.prepareStatement(query);
 			ps.setObject(1, report.getKaryawan());
-			ps.setString(2, report.getNamaProject());
+			ps.setString(2, report.getNamaProject().getNamaProject());
 			ps.setString(3, report.getKantor());
 			ps.setInt(5, report.getCuti());
 			ps.setInt(6, report.getSakit());
@@ -165,7 +166,7 @@ public class ReportDaoImpl implements ReportDao{
 				String nik = rs.getString("NAMA_KARYAWAN");
 				Mst_Karyawan karyawan = mstKaryawanDao.findOne(nik);
 				report.setKaryawan(karyawan);
-				report.setNamaProject(rs.getString("PROJECT"));
+				report.getNamaProject().setNamaProject(rs.getString("PROJECT"));
 				report.setKantor(rs.getString("KANTOR"));
 				report.setCuti(rs.getInt("CUTI"));
 				report.setSakit(rs.getInt("SAKIT"));
@@ -209,7 +210,7 @@ public class ReportDaoImpl implements ReportDao{
 				String nik = rs.getString("NAMA_KARYAWAN");
 				Mst_Karyawan karyawan = mstKaryawanDao.findOne(nik);
 				reports.setKaryawan(karyawan);
-				reports.setNamaProject(rs.getString("NAMA_PROJECT"));
+				reports.getNamaProject().setNamaProject(rs.getString("PROJECT"));
 				reports.setKantor(rs.getString("KANTOR"));
 				reports.setCuti(rs.getInt("CUTI"));
 				reports.setSakit(rs.getInt("SAKIT"));
@@ -236,9 +237,11 @@ public class ReportDaoImpl implements ReportDao{
 	}
 
 	@Override
-	public List<Report> findKaryawan(String searchKey) {
-		String query="select NO, NAMA_KARYAWAN "
-				+"FROM LAPORAN where NAMA_KARYAWAN LIKE '%"+searchKey+"%'";
+	public List<Report> findKaryawan(String searchKey, Mst_Header periode) {
+		String query="select * "
+				+"FROM LAPORAN where NAMA_KARYAWAN LIKE '%"+searchKey+"%' "
+						+ "AND PERIODE = '" + periode.getIdHeader()
+						+ "'";
 		
 		Connection con=null;
 		PreparedStatement ps=null;
@@ -250,9 +253,21 @@ public class ReportDaoImpl implements ReportDao{
 			rs = ps.executeQuery();
 			while(rs.next()){
 				Report report = new Report();
-				report.setNo(rs.getInt("NO"));
-				String nik = rs.getString("NAMA_KARYAWAN");				
+				Project project = new Project();
+				Mst_Karyawan karyawan = new Mst_Karyawan();
+				TipeKlaim klaim = new TipeKlaim();
 				
+				report.setNo(rs.getInt("NO"));
+				project.setNamaProject(rs.getString("PROJECT"));
+				report.setNamaProject(project);
+				karyawan.setNamaKaryawan(rs.getString("NAMA_KARYAWAN"));
+				report.setKaryawan(karyawan);
+				report.setCuti(rs.getInt("CUTI"));
+				report.setKantor(rs.getString("KANTOR"));
+				report.setTerlambat(rs.getInt("TERLAMBAT"));
+				klaim.setTransport(rs.getDouble("TRANSPORT"));
+				report.setTipeKlaim(klaim);
+				listDaftar.add(report);
 			}
 		}catch(SQLException e){
 			e.printStackTrace();
@@ -269,33 +284,39 @@ public class ReportDaoImpl implements ReportDao{
 	}
 
 	@Override
-	public Report findPeriode(String bulan) {
-		String query="select * FROM LAPORAN where ID_HEADER='"+bulan+"'";
+	public List<Report> findByPeriode(Mst_Header idHeader) {
+		String id = idHeader.getIdHeader();
+		
+		String query = "SELECT * FROM LAPORAN WHERE PERIODE='"
+				+ id +"'";
 		
 		Connection con=null;
 		PreparedStatement ps=null;
 		ResultSet rs = null;
-		Report reports = new Report();
+		List<Report> reports = new ArrayList<>();
 		try{
 			con = dataSource.getConnection();
 			ps = con.prepareStatement(query);
 			rs = ps.executeQuery();
 			while(rs.next()){
-				reports.setNo(rs.getInt("NO"));
+				Report report = new Report();
+				report.setNo(rs.getInt("NO"));
 				String nik = rs.getString("NAMA_KARYAWAN");
 				Mst_Karyawan karyawan = mstKaryawanDao.findOne(nik);
-				reports.setKaryawan(karyawan);
-				reports.setNamaProject(rs.getString("NAMA_PROJECT"));
-				reports.setKantor(rs.getString("KANTOR"));
-				reports.setCuti(rs.getInt("CUTI"));
-				reports.setSakit(rs.getInt("SAKIT"));
-				reports.setTerlambat(rs.getInt("TERLAMBAT"));
-				String klaim = rs.getString("KODE_KLAIM");
-				TipeKlaim tipe = tipeKlaimDao.findOne(klaim);
-				reports.setTipeKlaim(tipe);
-				reports.setJumlah(rs.getDouble("JUMLAH"));
+				report.setKaryawan(karyawan);
+//				report.getNamaProject().setNamaProject(rs.getString("PROJECT"));
+				report.setKantor(rs.getString("KANTOR"));
+				report.setCuti(rs.getInt("CUTI"));
+				report.setSakit(rs.getInt("SAKIT"));
+				report.setTerlambat(rs.getInt("TERLAMBAT"));
+//				String klaim = rs.getString("KODE_KLAIM");
+//				TipeKlaim tipe = tipeKlaimDao.findOne(klaim);
+//				report.setTipeKlaim(tipe);
+				report.setJumlah(rs.getDouble("JUMLAH"));
 				
+				System.out.println(report);
 				
+				reports.add(report);
 			}
 		}catch(SQLException e){
 			e.printStackTrace();
@@ -319,6 +340,7 @@ String query="select * FROM LAPORAN where NAMA_KARYAWAN='"+karya+"'";
 		PreparedStatement ps=null;
 		ResultSet rs = null;
 		Report reports = new Report();
+		
 		try{
 			con = dataSource.getConnection();
 			ps = con.prepareStatement(query);
@@ -329,7 +351,9 @@ String query="select * FROM LAPORAN where NAMA_KARYAWAN='"+karya+"'";
 				Mst_Karyawan karyawan = mstKaryawanDao.findOne(nik);
 				reports.setKaryawan(karyawan);
 				String project = rs.getString("PROJECT");
-				reports.setNamaProject(rs.getString("PROJECT"));
+				Project p = new Project();
+				p.setNamaProject(project);
+				reports.setNamaProject(p);
 				reports.setKantor(rs.getString("KANTOR"));
 				reports.setCuti(rs.getInt("CUTI"));
 				reports.setSakit(rs.getInt("SAKIT"));
@@ -338,7 +362,6 @@ String query="select * FROM LAPORAN where NAMA_KARYAWAN='"+karya+"'";
 				TipeKlaim tipe = tipeKlaimDao.findOne(klaim);
 				reports.setTipeKlaim(tipe);
 				reports.setJumlah(rs.getDouble("JUMLAH"));
-				
 				
 			}
 		}catch(SQLException e){

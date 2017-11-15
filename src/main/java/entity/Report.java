@@ -1,10 +1,13 @@
 package entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Report {
 
 	int no;
 	Mst_Karyawan karyawan;
-	String namaProject;
+	Project namaProject ;
 	String kantor;
 	int cuti;
 	int sakit;
@@ -31,10 +34,11 @@ public class Report {
 	public void setKaryawan(Mst_Karyawan karyawan) {
 		this.karyawan = karyawan;
 	}
-	public String getNamaProject() {
+
+	public Project getNamaProject() {
 		return namaProject;
 	}
-	public void setNamaProject(String namaProject) {
+	public void setNamaProject(Project namaProject) {
 		this.namaProject = namaProject;
 	}
 	public String getKantor() {

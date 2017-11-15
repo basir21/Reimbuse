@@ -1,6 +1,9 @@
 package vmd;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.enterprise.inject.New;
@@ -14,6 +17,7 @@ import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
+import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.zkplus.acegi.ShowWindowEventListener;
 import org.zkoss.zul.Comboitem;
 import org.zkoss.zul.ComboitemRenderer;
@@ -46,7 +50,7 @@ public class KaryawanVmd {
 	Mst_Header mst_Header = new Mst_Header();
 	Mst_Karyawan mstkaryawan = new Mst_Karyawan();
 	TipeKlaim tipeKlaim= new TipeKlaim();
-	Report report = new Report();
+	List<Report> report = new ArrayList<>();
 	List<Mst_Header> listHeader = new ArrayList<>();
 	List<Mst_Karyawan> listkaryawan = new ArrayList<>();
 	List<TipeKlaim> listKlaim = new ArrayList<>();
@@ -55,32 +59,81 @@ public class KaryawanVmd {
 	double penampung;
 	Mst_Karyawan tampungKaryawan = new Mst_Karyawan();
 	Report reportByNama = new Report();
+	Date selectedDate = new Date();
+	int month;
+	int years;
 	
-	
-	
-
 	@Init
 	public void load(){
 		listHeader = mst_HeaderSvc.findAll();
 		listkaryawan = mst_KaryawanSvc.findAll();
+		
+		
 	}
 
 	@Command("getDetail")
-	@NotifyChange("reportByNama")
+	@NotifyChange({"reportByNama", "listReports"})
 	public void getDetail(){
+		try{
+			report = reportSvc.findByPeriode(mst_Header);
+			for(Report r : report){
+				System.out.println(r.getKaryawan().getNamaKaryawan());
+			}
 		reportByNama = reportSvc.findOneKaryawan(tampungKaryawan.getNamaKaryawan());
-		System.out.println(reportByNama.getNamaProject());
-	}
-	
-	@Command("search")
-	@NotifyChange("listReports")
-	public void SearchNama(){
-		
-		listReports.clear();
-//		listReports = reportSvc.findKaryawan(tampungNama);
-		
+		listReports = reportSvc.findKaryawan(tampungKaryawan.getNamaKaryawan(), mst_Header);
+		System.out.println(mst_Header.getNamaBulan());
+		System.out.println(month + " " + years);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 	}	
 
+	@Command("simpan")
+	public void simpan(){
+		
+		Clients.showNotification("Data berhasil di update",
+				Clients.NOTIFICATION_TYPE_INFO, null, null, 1500);
+	}
+	
+	@Command("getPeriode")
+	public void getPeriode(){
+		SimpleDateFormat sdfMonth = new SimpleDateFormat("MM YYYY");
+		String d = sdfMonth.format(getSelectedDate());
+		String tempMonth = d.substring(0, 2);
+		String tempYears = d.substring(3, 7);
+		
+		month = Integer.parseInt(tempMonth);
+		years = Integer.parseInt(tempYears);
+		
+		mst_Header = mst_HeaderSvc.findPeriode(month, years);
+		
+		System.out.println(mst_Header.getNamaBulan());
+		System.out.println(month + " " + years);
+	}
+	
+	public int getMonth() {
+		return month;
+	}
+
+	public void setMonth(int month) {
+		this.month = month;
+	}
+
+	public int getYears() {
+		return years;
+	}
+
+	public void setYears(int years) {
+		this.years = years;
+	}
+
+	public Date getSelectedDate() {
+		return selectedDate;
+	}
+
+	public void setSelectedDate(Date selectedDate) {
+		this.selectedDate = selectedDate;
+	}
 
 	public Mst_Karyawan getTampungKaryawan() {
 		return tampungKaryawan;
@@ -108,12 +161,15 @@ public class KaryawanVmd {
 	public void setTipeKlaim(TipeKlaim tipeKlaim) {
 		this.tipeKlaim = tipeKlaim;
 	}
-	public Report getReport() {
+
+	public List<Report> getReport() {
 		return report;
 	}
-	public void setReport(Report report) {
+
+	public void setReport(List<Report> report) {
 		this.report = report;
 	}
+
 	public List<Mst_Header> getListHeader() {
 		return listHeader;
 	}

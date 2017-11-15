@@ -1,11 +1,12 @@
 package entity;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Mst_Header {
 	String idHeader;
-	String namaBulan;
+	Date namaBulan;
 	List<Report> listReport = new ArrayList<>();
 	
 	public List<Report> getListReport() {
@@ -20,10 +21,10 @@ public class Mst_Header {
 	public void setIdHeader(String idHeader) {
 		this.idHeader = idHeader;
 	}
-	public String getNamaBulan() {
+	public Date getNamaBulan() {
 		return namaBulan;
 	}
-	public void setNamaBulan(String namaBulan) {
+	public void setNamaBulan(Date namaBulan) {
 		this.namaBulan = namaBulan;
 	}
 	

@@ -38,8 +38,7 @@ public class Mst_HeaderSvcImpl implements Mst_HeaderSvc {
 	}
 
 	@Override
-	public Mst_Header findOne(String mstHeader) {
-		return mst_HeaderDao.findOne(mstHeader);
+	public Mst_Header findPeriode(int bulan, int tahun) {
+		return mst_HeaderDao.findPeriode(bulan, tahun);
 	}
-
 }
